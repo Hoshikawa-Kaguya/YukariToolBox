@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright © 2020-2021 Yukari316</Copyright>
+    <Description>饼干的常用小工具合集</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Yukari316/YukariToolBox</PackageProjectUrl>
+    <Authors>Yukari316</Authors>
+    <Company>Yukari316</Company>
+  </PropertyGroup>
+
+</Project>
