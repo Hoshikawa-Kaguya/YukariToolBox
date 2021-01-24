@@ -13,10 +13,17 @@ namespace YukariToolBox.Console
         private static LogLevel Level = LogLevel.Info;
 
         /// <summary>
-        /// 设置日志等级
+        /// <para>设置日志等级</para>
+        /// <para>如需禁用log请使用<see cref="SetNoLog"/></para>
         /// </summary>
         /// <param name="level">LogLevel</param>
-        public static void SetLogLevel(LogLevel level) => Level = level;
+        /// <exception cref="ArgumentOutOfRangeException">loglevel超出正常值</exception>
+        public static void SetLogLevel(LogLevel level)
+        {
+            if (level is < LogLevel.Debug or > LogLevel.Fatal)
+                throw new ArgumentOutOfRangeException(nameof(level), "loglevel out of range");
+            Level = level;
+        }
 
         /// <summary>
         /// 禁用log
