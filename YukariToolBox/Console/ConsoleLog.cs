@@ -163,7 +163,7 @@ namespace YukariToolBox.Console
         /// 全局错误Log
         /// </summary>
         /// <param name="args">UnhandledExceptionEventArgs</param>
-        internal static void UnhandledExceptionLog(UnhandledExceptionEventArgs args)
+        public static void UnhandledExceptionLog(UnhandledExceptionEventArgs args)
         {
             StringBuilder errorLogBuilder = new StringBuilder();
             errorLogBuilder.Append("检测到未处理的异常");
