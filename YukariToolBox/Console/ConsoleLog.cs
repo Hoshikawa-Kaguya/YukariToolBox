@@ -10,7 +10,7 @@ namespace YukariToolBox.Console
     public class ConsoleLog
     {
         #region Log等级设置
-        private static LogLevel Level = LogLevel.Info;
+        private static LogLevel level = LogLevel.Info;
         
         /// <summary>
         /// <para>设置日志等级</para>
@@ -22,20 +22,20 @@ namespace YukariToolBox.Console
         {
             if (level is < LogLevel.Debug or > LogLevel.Fatal)
                 throw new ArgumentOutOfRangeException(nameof(level), "loglevel out of range");
-            Level = level;
+            level = level;
         }
 
         /// <summary>
         /// 禁用log
         /// </summary>
-        public static void SetNoLog() => Level = (LogLevel) 5;
+        public static void SetNoLog() => level = (LogLevel) 5;
         #endregion
 
         #region 输出服务提供者设置
         /// <summary>
         /// 输出服务
         /// </summary>
-        private static IConsoleLogService _logger = new YukariConsoleLoggerService();
+        private static IConsoleLogService logger = new YukariConsoleLoggerService();
 
         /// <summary>
         /// 设置控制台输出服务
@@ -43,7 +43,7 @@ namespace YukariToolBox.Console
         /// <param name="logger">新的控制台输出服务</param>
         public static void SetLoggerService(IConsoleLogService logger)
         {
-            _logger = logger;
+            logger = logger;
         }
         #endregion
 
@@ -80,8 +80,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Info(object type, object message)
         {
-            if (Level > LogLevel.Info) return;
-            _logger.Info(type, message);
+            if (level > LogLevel.Info) return;
+            logger.Info(type, message);
         }
 
         /// <summary>
@@ -91,8 +91,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Warning(object type, object message)
         {
-            if (Level > LogLevel.Warn) return;
-            _logger.Warning(type, message);
+            if (level > LogLevel.Warn) return;
+            logger.Warning(type, message);
         }
 
         /// <summary>
@@ -102,8 +102,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Error(object type, object message)
         {
-            if (Level > LogLevel.Error) return;
-            _logger.Error(type, message);
+            if (level > LogLevel.Error) return;
+            logger.Error(type, message);
         }
 
         /// <summary>
@@ -113,8 +113,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Fatal(object type, object message)
         {
-            if (Level > LogLevel.Fatal) return;
-            _logger.Fatal(type, message);
+            if (level > LogLevel.Fatal) return;
+            logger.Fatal(type, message);
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Debug(object type, object message)
         {
-            if (Level != LogLevel.Debug) return;
-            _logger.Fatal(type, message);
+            if (level != LogLevel.Debug) return;
+            logger.Fatal(type, message);
         }
         #endregion
 
@@ -136,7 +136,7 @@ namespace YukariToolBox.Console
         /// <param name="args">UnhandledExceptionEventArgs</param>
         public static void UnhandledExceptionLog(UnhandledExceptionEventArgs args)
         {
-            _logger.UnhandledExceptionLog(args);
+            logger.UnhandledExceptionLog(args);
         }
         #endregion
     }
