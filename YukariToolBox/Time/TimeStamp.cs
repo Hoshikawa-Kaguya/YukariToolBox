@@ -11,12 +11,14 @@ namespace YukariToolBox.Time
         /// 获取今天零点的时间戳
         /// 时间戳单位(秒)
         /// </summary>
-        public static long GetTodayStampLong() =>(long) (DateTime.Today - new DateTime(1970, 1, 1, 8, 0, 0, 0)).TotalSeconds;
+        public static long GetTodayStampLong() =>
+            (long) (DateTime.Today - new DateTime(1970, 1, 1, 8, 0, 0, 0)).TotalSeconds;
 
         /// <summary>
         /// 获取现在的时间戳
         /// 时间戳单位(秒)
         /// </summary>
-        public static long GetNowTimeStamp() =>(long) (DateTime.Now - new DateTime(1970, 1, 1, 8, 0, 0, 0)).TotalSeconds;
+        public static long GetNowTimeStamp() =>
+            (long) (DateTime.Now - new DateTime(1970, 1, 1, 8, 0, 0, 0)).TotalSeconds;
     }
 }

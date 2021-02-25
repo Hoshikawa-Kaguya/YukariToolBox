@@ -1,53 +1,57 @@
 using System;
 using System.Text;
-using System.Threading;
 
-namespace YukariToolBox.Console
+namespace YukariToolBox.FormatLog
 {
     /// <summary>
     /// 格式化的控制台日志输出
     /// </summary>
-    public class ConsoleLog
+    public class Log
     {
         #region Log等级设置
+
         private static LogLevel level = LogLevel.Info;
-        
+
         /// <summary>
         /// <para>设置日志等级</para>
         /// <para>如需禁用log请使用<see cref="SetNoLog"/></para>
         /// </summary>
-        /// <param name="level">LogLevel</param>
+        /// <param name="newLevel">LogLevel</param>
         /// <exception cref="ArgumentOutOfRangeException">loglevel超出正常值</exception>
-        public static void SetLogLevel(LogLevel level)
+        public static void SetLogLevel(LogLevel newLevel)
         {
-            if (level is < LogLevel.Debug or > LogLevel.Fatal)
-                throw new ArgumentOutOfRangeException(nameof(level), "loglevel out of range");
-            level = level;
+            if (newLevel is < LogLevel.Debug or > LogLevel.Fatal)
+                throw new ArgumentOutOfRangeException(nameof(newLevel), "loglevel out of range");
+            level = newLevel;
         }
 
         /// <summary>
         /// 禁用log
         /// </summary>
         public static void SetNoLog() => level = (LogLevel) 5;
+
         #endregion
 
         #region 输出服务提供者设置
+
         /// <summary>
         /// 输出服务
         /// </summary>
-        private static IConsoleLogService logger = new YukariConsoleLoggerService();
+        private static ILogService logger = new YukariLoggerService();
 
         /// <summary>
         /// 设置控制台输出服务
         /// </summary>
-        /// <param name="logger">新的控制台输出服务</param>
-        public static void SetLoggerService(IConsoleLogService logger)
+        /// <param name="newLogger">新的控制台输出服务</param>
+        public static void SetLoggerService(ILogService newLogger)
         {
-            logger = logger;
+            logger = newLogger;
         }
+
         #endregion
 
         #region 格式化错误Log
+
         /// <summary>
         /// 生成格式化的错误Log文本
         /// </summary>
@@ -70,9 +74,11 @@ namespace YukariToolBox.Console
             errorMessageBuilder.Append("=================================\r\n");
             return errorMessageBuilder.ToString();
         }
+
         #endregion
 
         #region 格式化控制台Log函数
+
         /// <summary>
         /// 向控制台发送Info信息
         /// </summary>
@@ -127,9 +133,11 @@ namespace YukariToolBox.Console
             if (level != LogLevel.Debug) return;
             logger.Fatal(type, message);
         }
+
         #endregion
 
         #region 全局错误Log
+
         /// <summary>
         /// 全局错误Log
         /// </summary>
@@ -138,6 +146,7 @@ namespace YukariToolBox.Console
         {
             logger.UnhandledExceptionLog(args);
         }
+
         #endregion
     }
 }
