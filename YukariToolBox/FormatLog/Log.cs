@@ -131,7 +131,7 @@ namespace YukariToolBox.FormatLog
         public static void Debug(object type, object message)
         {
             if (level != LogLevel.Debug) return;
-            logger.Fatal(type, message);
+            logger.Debug(type, message);
         }
 
         #endregion
