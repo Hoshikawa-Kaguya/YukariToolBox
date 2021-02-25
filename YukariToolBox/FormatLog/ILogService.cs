@@ -1,8 +1,8 @@
 using System;
 
-namespace YukariToolBox.Console
+namespace YukariToolBox.FormatLog
 {
-    public interface IConsoleLogService
+    public interface ILogService
     {
         public void Info(object type, object message);
 
