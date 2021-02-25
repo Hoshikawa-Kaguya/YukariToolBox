@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using YukariToolBox.Console;
+using YukariToolBox.FormatLog;
 
 namespace YukariToolBox.Extensions
 {
@@ -27,7 +27,7 @@ namespace YukariToolBox.Extensions
                 if (block != null)
                     block(ex);
                 else
-                    ConsoleLog.Fatal("Async Method",ConsoleLog.ErrorLogBuilder(ex));
+                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
                 return default;
             }
         }
@@ -46,7 +46,7 @@ namespace YukariToolBox.Extensions
             catch (Exception ex)
             {
                 if (block == null)
-                    ConsoleLog.Fatal("Async Method", ConsoleLog.ErrorLogBuilder(ex));
+                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
                 else
                     block.Invoke(ex);
             }
@@ -70,7 +70,7 @@ namespace YukariToolBox.Extensions
                 if (block != null)
                     block(ex);
                 else
-                    ConsoleLog.Fatal("Async Method",ConsoleLog.ErrorLogBuilder(ex));
+                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
                 return default;
             }
         }
@@ -89,7 +89,7 @@ namespace YukariToolBox.Extensions
             catch (Exception ex)
             {
                 if (block == null)
-                    ConsoleLog.Fatal("Async Method", ConsoleLog.ErrorLogBuilder(ex));
+                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
                 else
                     block.Invoke(ex);
             }
