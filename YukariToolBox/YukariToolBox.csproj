@@ -9,16 +9,16 @@
     <PackageProjectUrl>https://github.com/Yukari316/YukariToolBox</PackageProjectUrl>
     <Authors>Yukari316</Authors>
     <Company>Yukari316</Company>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\PROJECT\YukariToolBox\YukariToolBox\YukariToolBox.xml</DocumentationFile>
+   
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>E:\PROJECT\YukariToolBox\YukariToolBox\YukariToolBox.xml</DocumentationFile>
+
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
 

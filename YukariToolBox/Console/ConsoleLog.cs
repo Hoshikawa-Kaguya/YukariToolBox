@@ -10,8 +10,8 @@ namespace YukariToolBox.Console
     public class ConsoleLog
     {
         #region Log等级设置
-        private static LogLevel Level = LogLevel.Info;
-
+        private static LogLevel level = LogLevel.Info;
+        
         /// <summary>
         /// <para>设置日志等级</para>
         /// <para>如需禁用log请使用<see cref="SetNoLog"/></para>
@@ -22,17 +22,29 @@ namespace YukariToolBox.Console
         {
             if (level is < LogLevel.Debug or > LogLevel.Fatal)
                 throw new ArgumentOutOfRangeException(nameof(level), "loglevel out of range");
-            Level = level;
+            level = level;
         }
 
         /// <summary>
         /// 禁用log
         /// </summary>
-        public static void SetNoLog() => Level = (LogLevel) 5;
+        public static void SetNoLog() => level = (LogLevel) 5;
         #endregion
 
-        #region 控制台锁
-        private static readonly object ConsoleWriterLock = new();
+        #region 输出服务提供者设置
+        /// <summary>
+        /// 输出服务
+        /// </summary>
+        private static IConsoleLogService logger = new YukariConsoleLoggerService();
+
+        /// <summary>
+        /// 设置控制台输出服务
+        /// </summary>
+        /// <param name="logger">新的控制台输出服务</param>
+        public static void SetLoggerService(IConsoleLogService logger)
+        {
+            logger = logger;
+        }
         #endregion
 
         #region 格式化错误Log
@@ -68,12 +80,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Info(object type, object message)
         {
-            if (Level > LogLevel.Info) return;
-            lock (ConsoleWriterLock)
-            {
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.WriteLine($@"[{DateTime.Now}][INFO][{type}]{message}");
-            }
+            if (level > LogLevel.Info) return;
+            logger.Info(type, message);
         }
 
         /// <summary>
@@ -83,19 +91,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Warning(object type, object message)
         {
-            if (Level > LogLevel.Warn) return;
-            lock (ConsoleWriterLock)
-            {
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"[{DateTime.Now}][");
-                System.Console.ForegroundColor = ConsoleColor.Yellow;
-                System.Console.Write(@"WARNINIG");
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"][{type}]");
-                System.Console.ForegroundColor = ConsoleColor.Yellow;
-                System.Console.WriteLine($@"{message}");
-                System.Console.ForegroundColor = ConsoleColor.White;
-            }
+            if (level > LogLevel.Warn) return;
+            logger.Warning(type, message);
         }
 
         /// <summary>
@@ -105,19 +102,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Error(object type, object message)
         {
-            if (Level > LogLevel.Error) return;
-            lock (ConsoleWriterLock)
-            {
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"[{DateTime.Now}][");
-                System.Console.ForegroundColor = ConsoleColor.Red;
-                System.Console.Write(@"ERROR");
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"][{type}]");
-                System.Console.ForegroundColor = ConsoleColor.Red;
-                System.Console.WriteLine(message);
-                System.Console.ForegroundColor = ConsoleColor.White;
-            }
+            if (level > LogLevel.Error) return;
+            logger.Error(type, message);
         }
 
         /// <summary>
@@ -127,19 +113,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Fatal(object type, object message)
         {
-            if (Level > LogLevel.Fatal) return;
-            lock (ConsoleWriterLock)
-            {
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"[{DateTime.Now}][");
-                System.Console.ForegroundColor = ConsoleColor.DarkRed;
-                System.Console.Write(@"FATAL");
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"][{type}]");
-                System.Console.ForegroundColor = ConsoleColor.DarkRed;
-                System.Console.WriteLine(message);
-                System.Console.ForegroundColor = ConsoleColor.White;
-            }
+            if (level > LogLevel.Fatal) return;
+            logger.Fatal(type, message);
         }
 
         /// <summary>
@@ -149,19 +124,8 @@ namespace YukariToolBox.Console
         /// <param name="message">信息内容</param>
         public static void Debug(object type, object message)
         {
-            if (Level != LogLevel.Debug) return;
-            lock (ConsoleWriterLock)
-            {
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"[{DateTime.Now}][");
-                System.Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.Write(@"DEBUG");
-                System.Console.ForegroundColor = ConsoleColor.White;
-                System.Console.Write($@"][{type}]");
-                System.Console.ForegroundColor = ConsoleColor.Cyan;
-                System.Console.WriteLine(message);
-                System.Console.ForegroundColor = ConsoleColor.White;
-            }
+            if (level != LogLevel.Debug) return;
+            logger.Fatal(type, message);
         }
         #endregion
 
@@ -172,17 +136,7 @@ namespace YukariToolBox.Console
         /// <param name="args">UnhandledExceptionEventArgs</param>
         public static void UnhandledExceptionLog(UnhandledExceptionEventArgs args)
         {
-            StringBuilder errorLogBuilder = new StringBuilder();
-            errorLogBuilder.Append("检测到未处理的异常");
-            if (args.IsTerminating)
-                errorLogBuilder.Append("，服务器将停止运行");
-            errorLogBuilder.Append("，错误信息:");
-            errorLogBuilder
-                .Append(ErrorLogBuilder(args.ExceptionObject as Exception));
-            Fatal("Sora",errorLogBuilder);
-            Warning("Sora","将在5s后自动退出");
-            Thread.Sleep(5000);
-            Environment.Exit(-1);
+            logger.UnhandledExceptionLog(args);
         }
         #endregion
     }
