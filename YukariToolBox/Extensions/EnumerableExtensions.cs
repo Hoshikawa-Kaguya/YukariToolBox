@@ -25,7 +25,7 @@ namespace YukariToolBox.Extensions
 
         public static Tuple<IEnumerable<TSource>, IList<TSource>> Update<TSource>(
             this Tuple<IEnumerable<TSource>, IList<TSource>> source,
-            TSource newValue)
+            TSource newValue) where TSource : struct
         {
             var temp = source.Item1.ToList();
             for (var i = 0; i < temp.Count; i++)
