@@ -7,10 +7,10 @@ namespace ToolBoxTest
 {
     class Program
     {
-        class person
+        struct person
         {
             public int    id;
-            public string a = "";
+            public string a ;
         }
 
         static void Main(string[] args)
@@ -22,9 +22,30 @@ namespace ToolBoxTest
             Log.Warning("wow", "wow");
             Log.Error("wow", "wow");
 
-            var list = new List<int>() {1, 2, 3, 4, 5};
-            list.WhereUpdate(i => i !=2)
-                .Update(1);
+            var list = new List <person>()
+            {
+                new person()
+                {
+                    id=1,
+                    a="123"
+                },
+                new person()
+                {
+                    id =2,
+                    a  ="1331223"
+                },
+                new person()
+                {
+                    id =3,
+                    a  ="32178678123123"
+                }
+            };
+            list.UpdateWhen(i => i.id !=2)
+                .ExecuteUpdate(new person()
+                {
+                    id=2,
+                    a="12312211221121212"
+                });
                  
             Console.ReadKey();
         }
