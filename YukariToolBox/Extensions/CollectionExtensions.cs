@@ -4,8 +4,42 @@ using System.Linq;
 
 namespace YukariToolBox.Extensions
 {
-    public static class EnumerableExtensions
+    public static class CollectionExtensions
     {
+#nullable enable
+        public static bool ArrayEquals<T>(this T[]? arr1, T[]? arr2)
+        {
+            if (arr1?.Length != arr2?.Length
+             || (arr1 is null    && !(arr2 is null))
+             || (!(arr1 is null) && arr2 is null))
+            {
+                return false;
+            }
+
+            if (arr1 is null && arr2 is null)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < arr1?.Length; i++)
+            {
+                if (!(arr1[i] is null && arr2[i] is null))
+                {
+                    if (arr1[i] is null || arr2[i] is null)
+                    {
+                        return false;
+                    }
+
+                    if (!arr1[i].Equals(arr2[i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public static bool Update<TSource>
             (this IEnumerable<TSource> source, Action<TSource> updateAction)
             where TSource : class
