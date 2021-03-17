@@ -10,8 +10,8 @@ namespace YukariToolBox.Extensions
         public static bool ArrayEquals<T>(this T[]? arr1, T[]? arr2)
         {
             if (arr1?.Length != arr2?.Length
-             || (arr1 is null    && !(arr2 is null))
-             || (!(arr1 is null) && arr2 is null))
+             || arr1 is null    && !(arr2 is null)
+             || !(arr1 is null) && arr2 is null)
             {
                 return false;
             }
@@ -23,14 +23,14 @@ namespace YukariToolBox.Extensions
 
             for (int i = 0; i < arr1?.Length; i++)
             {
-                if (!(arr1[i] is null && arr2[i] is null))
+                if (arr2 != null && !(arr1[i] is null && arr2[i] is null))
                 {
                     if (arr1[i] is null || arr2[i] is null)
                     {
                         return false;
                     }
 
-                    if (!arr1[i].Equals(arr2[i]))
+                    if (!(arr1[i]?.Equals(arr2[i]) ?? true))
                     {
                         return false;
                     }

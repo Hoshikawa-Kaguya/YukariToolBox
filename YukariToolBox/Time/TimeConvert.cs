@@ -7,7 +7,7 @@ namespace YukariToolBox.Time
     /// </summary>
     public static class TimeConvert
     {
-        public static readonly DateTime UnixStartTime = new DateTime(1970, 1, 1, 8, 0, 0, 0);
+        private static readonly DateTime UnixStartTime = new(1970, 1, 1, 8, 0, 0, 0);
 
         /// <summary>
         /// DateTime转时间戳
