@@ -1,7 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using YukariToolBox.Extensions;
 using YukariToolBox.FormatLog;
+using YukariToolBox.Time;
 
 namespace ToolBoxTest
 {
@@ -10,7 +12,7 @@ namespace ToolBoxTest
         struct person
         {
             public int    id;
-            public string a ;
+            public string a;
         }
 
         static void Main(string[] args)
@@ -21,32 +23,15 @@ namespace ToolBoxTest
             Log.Fatal("wow", "wow");
             Log.Warning("wow", "wow");
             Log.Error("wow", "wow");
+            Console.WriteLine("开始啦");
+            var ret = TimeMeter.Count(async () =>
+                                      {
+                                          await Task.Delay(1234);
+                                          return 1;
+                                      });
+            Console.WriteLine("结束啦");
+            Console.WriteLine(ret.Result.timeSpan.TotalMilliseconds);
 
-            var list = new List <person>()
-            {
-                new person()
-                {
-                    id=1,
-                    a="123"
-                },
-                new person()
-                {
-                    id =2,
-                    a  ="1331223"
-                },
-                new person()
-                {
-                    id =3,
-                    a  ="32178678123123"
-                }
-            };
-            list.UpdateWhen(i => i.id !=2)
-                .ExecuteUpdate(new person()
-                {
-                    id=2,
-                    a="12312211221121212"
-                });
-                 
             Console.ReadKey();
         }
     }

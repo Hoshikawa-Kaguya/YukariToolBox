@@ -7,15 +7,24 @@ namespace YukariToolBox.Time
     /// </summary>
     public static class TimeConvert
     {
+        public static readonly DateTime UnixStartTime = new DateTime(1970, 1, 1, 8, 0, 0, 0);
+
         /// <summary>
         /// DateTime转时间戳
+        /// <param name="isMilliSeconds">是否精确到毫秒（13位时间戳）</param>
         /// </summary>
-        public static long ToTimeStamp(this DateTime date) =>
-            (long) (date - new DateTime(1970, 1, 1, 8, 0, 0, 0)).TotalSeconds;
+        public static long ToTimeStamp(this DateTime date, bool isMilliSeconds = false) =>
+            isMilliSeconds
+                ? (long) (date - UnixStartTime).TotalMilliseconds
+                : (long) (date - UnixStartTime).TotalSeconds;
 
         /// <summary>
         /// 时间戳转DateTime
+        /// <param name="isMilliSeconds">是否精确到毫秒（13位时间戳）</param>
         /// </summary>
-        public static DateTime ToDateTime(this long stamp) => new DateTime(1970, 1, 1, 8, 0, 0, 0).AddSeconds(stamp);
+        public static DateTime ToDateTime(this long timeStamp, bool isMilliSeconds = false) =>
+            isMilliSeconds
+                ? UnixStartTime.AddMilliseconds(timeStamp)
+                : UnixStartTime.AddSeconds(timeStamp);
     }
 }
