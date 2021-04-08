@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 
 namespace YukariToolBox.Extensions
 {
@@ -78,7 +79,7 @@ namespace YukariToolBox.Extensions
                         return false;
                     }
 
-                    if (!(arr1[i]?.Equals(arr2[i]) ?? true))
+                    if (!arr1[i].Equals(arr2[i]))
                     {
                         return false;
                     }
@@ -102,7 +103,7 @@ namespace YukariToolBox.Extensions
                 return false;
             }
 
-            for (int i = 0; i < arr1?.Length; i++)
+            for (int i = 0; i < arr1.Length; i++)
             {
                 if (!arr1[i].Equals(arr2[i]))
                 {
