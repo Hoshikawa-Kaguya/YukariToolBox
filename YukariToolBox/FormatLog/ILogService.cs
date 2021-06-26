@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace YukariToolBox.FormatLog
 {
@@ -15,5 +16,7 @@ namespace YukariToolBox.FormatLog
         public void Debug(object type, object message);
 
         public void UnhandledExceptionLog(UnhandledExceptionEventArgs args);
+
+        public void SetCultureInfo(CultureInfo cultureInfo);
     }
 }

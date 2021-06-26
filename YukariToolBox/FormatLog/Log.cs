@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text;
 
 namespace YukariToolBox.FormatLog
@@ -10,7 +11,7 @@ namespace YukariToolBox.FormatLog
     {
         #region Log等级设置
 
-        private static LogLevel level = LogLevel.Info;
+        private static LogLevel _level = LogLevel.Info;
 
         /// <summary>
         /// <para>设置日志等级</para>
@@ -22,13 +23,26 @@ namespace YukariToolBox.FormatLog
         {
             if (newLevel is < LogLevel.Debug or > LogLevel.Fatal)
                 throw new ArgumentOutOfRangeException(nameof(newLevel), "loglevel out of range");
-            level = newLevel;
+            _level = newLevel;
         }
 
         /// <summary>
         /// 禁用log
         /// </summary>
-        public static void SetNoLog() => level = (LogLevel) 5;
+        public static void SetNoLog() => _level = (LogLevel) 5;
+
+        #endregion
+
+        #region 区域格式化设置
+
+        /// <summary>
+        /// 设置日志格式化区域信息
+        /// </summary>
+        /// <param name="cultureInfo">区域信息</param>
+        public static void SetCultureInfo(CultureInfo cultureInfo)
+        {
+            _logger.SetCultureInfo(cultureInfo);
+        }
 
         #endregion
 
@@ -37,7 +51,7 @@ namespace YukariToolBox.FormatLog
         /// <summary>
         /// 输出服务
         /// </summary>
-        private static ILogService logger = new YukariLoggerService();
+        private static ILogService _logger = new YukariLoggerService();
 
         /// <summary>
         /// 设置控制台输出服务
@@ -45,7 +59,7 @@ namespace YukariToolBox.FormatLog
         /// <param name="newLogger">新的控制台输出服务</param>
         public static void SetLoggerService(ILogService newLogger)
         {
-            logger = newLogger;
+            _logger = newLogger;
         }
 
         #endregion
@@ -86,8 +100,8 @@ namespace YukariToolBox.FormatLog
         /// <param name="message">信息内容</param>
         public static void Info(object type, object message)
         {
-            if (level > LogLevel.Info) return;
-            logger.Info(type, message);
+            if (_level > LogLevel.Info) return;
+            _logger.Info(type, message);
         }
 
         /// <summary>
@@ -97,8 +111,8 @@ namespace YukariToolBox.FormatLog
         /// <param name="message">信息内容</param>
         public static void Warning(object type, object message)
         {
-            if (level > LogLevel.Warn) return;
-            logger.Warning(type, message);
+            if (_level > LogLevel.Warn) return;
+            _logger.Warning(type, message);
         }
 
         /// <summary>
@@ -108,8 +122,8 @@ namespace YukariToolBox.FormatLog
         /// <param name="message">信息内容</param>
         public static void Error(object type, object message)
         {
-            if (level > LogLevel.Error) return;
-            logger.Error(type, message);
+            if (_level > LogLevel.Error) return;
+            _logger.Error(type, message);
         }
 
         /// <summary>
@@ -119,8 +133,8 @@ namespace YukariToolBox.FormatLog
         /// <param name="message">信息内容</param>
         public static void Fatal(object type, object message)
         {
-            if (level > LogLevel.Fatal) return;
-            logger.Fatal(type, message);
+            if (_level > LogLevel.Fatal) return;
+            _logger.Fatal(type, message);
         }
 
         /// <summary>
@@ -130,8 +144,8 @@ namespace YukariToolBox.FormatLog
         /// <param name="message">信息内容</param>
         public static void Debug(object type, object message)
         {
-            if (level != LogLevel.Debug) return;
-            logger.Debug(type, message);
+            if (_level != LogLevel.Debug) return;
+            _logger.Debug(type, message);
         }
 
         #endregion
@@ -144,7 +158,7 @@ namespace YukariToolBox.FormatLog
         /// <param name="args">UnhandledExceptionEventArgs</param>
         public static void UnhandledExceptionLog(UnhandledExceptionEventArgs args)
         {
-            logger.UnhandledExceptionLog(args);
+            _logger.UnhandledExceptionLog(args);
         }
 
         #endregion

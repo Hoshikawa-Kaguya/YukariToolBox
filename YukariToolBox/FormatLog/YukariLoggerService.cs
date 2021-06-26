@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 
@@ -8,7 +9,25 @@ namespace YukariToolBox.FormatLog
     {
         #region 控制台锁
 
-        private static readonly object ConsoleWriterLock = new();
+        private readonly object ConsoleWriterLock = new();
+
+        #endregion
+        
+        #region 区域格式化设置
+
+        private CultureInfo _cultureInfo = CultureInfo.CurrentCulture;
+
+        /// <summary>
+        /// 设置日志格式化区域信息
+        /// </summary>
+        /// <param name="cultureInfo">区域信息</param>
+        public void SetCultureInfo(CultureInfo cultureInfo)
+        {
+            lock (ConsoleWriterLock)
+            {
+                _cultureInfo = cultureInfo;
+            }
+        }
 
         #endregion
 
@@ -24,7 +43,7 @@ namespace YukariToolBox.FormatLog
             lock (ConsoleWriterLock)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($@"[{DateTime.Now}][INFO][{type}]{message}");
+                Console.WriteLine($@"[{DateTime.Now.ToString(_cultureInfo)}][INFO][{type}]{message}");
             }
         }
 
@@ -38,7 +57,7 @@ namespace YukariToolBox.FormatLog
             lock (ConsoleWriterLock)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($@"[{DateTime.Now}][");
+                Console.Write($@"[{DateTime.Now.ToString(_cultureInfo)}][");
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(@"WARNINIG");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -59,7 +78,7 @@ namespace YukariToolBox.FormatLog
             lock (ConsoleWriterLock)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($@"[{DateTime.Now}][");
+                Console.Write($@"[{DateTime.Now.ToString(_cultureInfo)}][");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(@"ERROR");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -80,7 +99,7 @@ namespace YukariToolBox.FormatLog
             lock (ConsoleWriterLock)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($@"[{DateTime.Now}][");
+                Console.Write($@"[{DateTime.Now.ToString(_cultureInfo)}][");
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.Write(@"FATAL");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -101,7 +120,7 @@ namespace YukariToolBox.FormatLog
             lock (ConsoleWriterLock)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write($@"[{DateTime.Now}][");
+                Console.Write($@"[{DateTime.Now.ToString(_cultureInfo)}][");
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write(@"DEBUG");
                 Console.ForegroundColor = ConsoleColor.White;

@@ -176,10 +176,10 @@ namespace YukariToolBox.Extensions
             {
                 var searchResult = source.Item1.ToList();
                 var sourceList   = source.Item2.ToList();
-                for (var i = 0; i < searchResult.Count; i++)
+                foreach (var t in searchResult)
                 {
                     //查找源列表中有哪些匹配搜索到的内容，将其更新为新值
-                    int index = sourceList.FindIndex(j => j.Equals(searchResult[i]));
+                    int index = sourceList.FindIndex(j => j.Equals(t));
                     source.Item2[index] = newValue;
                 }
             }
@@ -204,9 +204,9 @@ namespace YukariToolBox.Extensions
                 bool hasUpdate    = false;
                 var  searchResult = source.Item1.ToList();
                 var  sourceList   = source.Item2.ToList();
-                for (var i = 0; i < searchResult.Count; i++)
+                foreach (var t in searchResult)
                 {
-                    int index = sourceList.FindIndex(j => j.Equals(searchResult[i]));
+                    int index = sourceList.FindIndex(j => j.Equals(t));
                     if (index != -1)
                     {
                         sourceList[index] = newValue;
