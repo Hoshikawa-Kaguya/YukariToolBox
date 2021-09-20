@@ -29,7 +29,7 @@ namespace YukariToolBox.FormatLog
         /// <summary>
         /// 获取当前的日志等级
         /// </summary>
-        public static LogLevel GetLogLevel() => level;
+        public static LogLevel GetLogLevel() => _level;
 
         /// <summary>
         /// 禁用log
