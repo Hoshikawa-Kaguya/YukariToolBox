@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using System.Threading;
 using YukariToolBox.Time;
 
 namespace ToolBoxTest
@@ -9,13 +9,13 @@ namespace ToolBoxTest
         private static void Main(string[] args)
         {
             Console.WriteLine("开始啦");
-            var ret = TimeMeter.Count(async () =>
-                                      {
-                                          await Task.Delay(1234);
-                                          return 1;
-                                      });
+            var ret = TimeMeter.Count(() =>
+                                        {
+                                            Thread.Sleep(1000);
+                                            return 0;
+                                        });
             Console.WriteLine("结束啦");
-            Console.WriteLine(ret.Result.timeSpan.TotalMilliseconds);
+            Console.WriteLine(ret.timeSpan.TotalMilliseconds);
 
             Console.ReadKey();
         }

@@ -7,7 +7,7 @@ namespace YukariToolBox.FormatLog
     /// <summary>
     /// 格式化的控制台日志输出
     /// </summary>
-    public class Log
+    public static class Log
     {
         #region Log等级设置
 
@@ -25,6 +25,11 @@ namespace YukariToolBox.FormatLog
                 throw new ArgumentOutOfRangeException(nameof(newLevel), "loglevel out of range");
             _level = newLevel;
         }
+
+        /// <summary>
+        /// 获取当前的日志等级
+        /// </summary>
+        public static LogLevel GetLogLevel() => level;
 
         /// <summary>
         /// 禁用log
