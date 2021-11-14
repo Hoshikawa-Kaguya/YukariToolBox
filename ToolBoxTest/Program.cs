@@ -1,23 +1,23 @@
 using System;
-using System.Threading;
-using YukariToolBox.Time;
+using System.Globalization;
+using YukariToolBox.LightLog;
 
-namespace ToolBoxTest
+namespace ToolBoxTest;
+
+internal static class Program
 {
-    static class Program
+    private static void Main(string[] args)
     {
-        private static void Main(string[] args)
-        {
-            Console.WriteLine("开始啦");
-            var ret = TimeMeter.Count(() =>
-                                        {
-                                            Thread.Sleep(1000);
-                                            return 0;
-                                        });
-            Console.WriteLine("结束啦");
-            Console.WriteLine(ret.timeSpan.TotalMilliseconds);
-
-            Console.ReadKey();
-        }
+        Log.SetConfiguration(new LogConfiguration()
+                             .SetLogLevel(LogLevel.Verbos)
+                             .EnableConsoleOutput()
+                             .SetLogCultureInfo(CultureInfo.InvariantCulture));
+        Log.SetLogLevel(LogLevel.Verbos);
+        Log.Verbos("wow", "wow");
+        Log.Debug("wow", "wow");
+        Log.Info("wow", "wow");
+        Log.Warning("wow", "wow");
+        Log.Error("wow", "wow");
+        Log.Fatal(new Exception("shit"), "wow", "wow");
     }
 }

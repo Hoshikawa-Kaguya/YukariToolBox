@@ -1,8 +1,4 @@
-using System;
-using System.Threading.Tasks;
-using YukariToolBox.FormatLog;
-
-namespace YukariToolBox.Extensions
+namespace YukariToolBox.AsyncExtensions
 {
     /// <summary>
     /// 用于异步执行的简易化错误处理
@@ -16,7 +12,7 @@ namespace YukariToolBox.Extensions
         /// <param name="this">需要被捕捉错误的方法</param>
         /// <param name="block">错误处理动作</param>
         /// <returns>T</returns>
-        public static async ValueTask<T> RunCatch<T>(this ValueTask<T> @this, Func<Exception, T> block = null)
+        public static async ValueTask<T?> RunCatch<T>(this ValueTask<T?> @this, Func<Exception, T> block)
         {
             try
             {
@@ -24,10 +20,7 @@ namespace YukariToolBox.Extensions
             }
             catch (Exception ex)
             {
-                if (block != null)
-                    block(ex);
-                else
-                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
+                block(ex);
                 return default;
             }
         }
@@ -37,7 +30,7 @@ namespace YukariToolBox.Extensions
         /// </summary>
         /// <param name="this">需要被捕捉错误的方法</param>
         /// <param name="block">错误处理动作</param>
-        public static async ValueTask RunCatch(this ValueTask @this, Action<Exception> block = null)
+        public static async ValueTask RunCatch(this ValueTask @this, Action<Exception> block)
         {
             try
             {
@@ -45,10 +38,7 @@ namespace YukariToolBox.Extensions
             }
             catch (Exception ex)
             {
-                if (block == null)
-                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
-                else
-                    block.Invoke(ex);
+                block.Invoke(ex);
             }
         }
 
@@ -59,7 +49,7 @@ namespace YukariToolBox.Extensions
         /// <param name="this">需要被捕捉错误的方法</param>
         /// <param name="block">错误处理动作</param>
         /// <returns>T</returns>
-        public static async Task<T> RunCatch<T>(this Task<T> @this, Func<Exception, T> block = null)
+        public static async Task<T?> RunCatch<T>(this Task<T?> @this, Func<Exception, T> block)
         {
             try
             {
@@ -67,10 +57,7 @@ namespace YukariToolBox.Extensions
             }
             catch (Exception ex)
             {
-                if (block != null)
-                    block(ex);
-                else
-                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
+                block(ex);
                 return default;
             }
         }
@@ -80,7 +67,7 @@ namespace YukariToolBox.Extensions
         /// </summary>
         /// <param name="this">需要被捕捉错误的方法</param>
         /// <param name="block">错误处理动作</param>
-        public static async Task RunCatch(this Task @this, Action<Exception> block = null)
+        public static async Task RunCatch(this Task @this, Action<Exception> block)
         {
             try
             {
@@ -88,10 +75,7 @@ namespace YukariToolBox.Extensions
             }
             catch (Exception ex)
             {
-                if (block == null)
-                    Log.Fatal("Async Method", Log.ErrorLogBuilder(ex));
-                else
-                    block.Invoke(ex);
+                block.Invoke(ex);
             }
         }
     }

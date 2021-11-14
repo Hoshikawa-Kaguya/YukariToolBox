@@ -1,10 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace YukariToolBox.Helpers
+namespace YukariToolBox.ObjectHelper
 {
     public static class ObjectHelper
     {
@@ -36,16 +34,16 @@ namespace YukariToolBox.Helpers
         /// <typeparam name="T">转换类型</typeparam>
         /// <param name="input">需要转换的字符串</param>
         /// <returns>转换值</returns>
-        public static T Convert<T>(this string input)
+        public static T? Convert<T>(this string input)
         {
             try
             {
                 var converter = TypeDescriptor.GetConverter(typeof(T));
-                return (T) converter.ConvertFromString(input);
+                return (T) converter.ConvertFromString(input)!;
             }
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
         }
 
@@ -55,7 +53,7 @@ namespace YukariToolBox.Helpers
         /// <param name="input">需要转换的字符串</param>
         /// <param name="type">转换类型</param>
         /// <returns>转换值</returns>
-        public static object Convert(this string input, Type type)
+        public static object? Convert(this string input, Type type)
         {
             try
             {

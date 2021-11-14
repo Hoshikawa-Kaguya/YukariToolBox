@@ -1,10 +1,15 @@
-namespace YukariToolBox.FormatLog
+namespace YukariToolBox.LightLog
 {
     /// <summary>
     /// 控制台日志等级
     /// </summary>
     public enum LogLevel
     {
+        /// <summary>
+        /// Verbos
+        /// </summary>
+        Verbos,
+
         /// <summary>
         /// Debug
         /// </summary>

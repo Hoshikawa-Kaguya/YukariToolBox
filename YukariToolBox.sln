@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YukariToolBox", "YukariToolBox\YukariToolBox.csproj", "{013A8135-0A22-438E-883A-67F766A2153F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolBoxTest", "ToolBoxTest\ToolBoxTest.csproj", "{816561E5-3A7E-4482-A374-A1A144C6E649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolBoxTest", "ToolBoxTest\ToolBoxTest.csproj", "{816561E5-3A7E-4482-A374-A1A144C6E649}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YukariToolBox.LightLog", "YukariToolBox.LightLog\YukariToolBox.LightLog.csproj", "{9B02DAC7-564C-48F8-8C82-3892BC90BD03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YukariToolBox.AsyncExtensions", "YukariToolBox.AsyncExtensions\YukariToolBox.AsyncExtensions.csproj", "{77E1F31E-2334-438D-AC8D-E4CE965125F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YukariToolBox.ObjectHelper", "YukariToolBox.ObjectHelper\YukariToolBox.ObjectHelper.csproj", "{B4F9F5DF-C3F8-4B4E-B9A6-E9CBD492D144}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YukariToolBox.Time", "YukariToolBox.Time\YukariToolBox.Time.csproj", "{48486832-2774-40B9-AC1E-20D3AF74B9C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{013A8135-0A22-438E-883A-67F766A2153F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{013A8135-0A22-438E-883A-67F766A2153F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{013A8135-0A22-438E-883A-67F766A2153F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{013A8135-0A22-438E-883A-67F766A2153F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{816561E5-3A7E-4482-A374-A1A144C6E649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{816561E5-3A7E-4482-A374-A1A144C6E649}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{816561E5-3A7E-4482-A374-A1A144C6E649}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{816561E5-3A7E-4482-A374-A1A144C6E649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B02DAC7-564C-48F8-8C82-3892BC90BD03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B02DAC7-564C-48F8-8C82-3892BC90BD03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B02DAC7-564C-48F8-8C82-3892BC90BD03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B02DAC7-564C-48F8-8C82-3892BC90BD03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E1F31E-2334-438D-AC8D-E4CE965125F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E1F31E-2334-438D-AC8D-E4CE965125F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E1F31E-2334-438D-AC8D-E4CE965125F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E1F31E-2334-438D-AC8D-E4CE965125F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F9F5DF-C3F8-4B4E-B9A6-E9CBD492D144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F9F5DF-C3F8-4B4E-B9A6-E9CBD492D144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F9F5DF-C3F8-4B4E-B9A6-E9CBD492D144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F9F5DF-C3F8-4B4E-B9A6-E9CBD492D144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48486832-2774-40B9-AC1E-20D3AF74B9C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48486832-2774-40B9-AC1E-20D3AF74B9C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48486832-2774-40B9-AC1E-20D3AF74B9C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48486832-2774-40B9-AC1E-20D3AF74B9C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

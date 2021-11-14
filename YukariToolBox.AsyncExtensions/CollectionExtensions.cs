@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
+﻿// ReSharper disable ConditionIsAlwaysTrueOrFalse
 
-namespace YukariToolBox.Extensions
+namespace YukariToolBox.AsyncExtensions
 {
     public static class CollectionExtensions
     {
