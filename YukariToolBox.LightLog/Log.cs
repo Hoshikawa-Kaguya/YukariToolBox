@@ -45,6 +45,9 @@ public static class Log
 
     #region log配置文件
 
+    /// <summary>
+    /// 设置log配置
+    /// </summary>
     public static void SetConfiguration(LogConfiguration configuration)
     {
         _logConfiguration = configuration;
@@ -61,6 +64,7 @@ public static class Log
     public static void SetCultureInfo(CultureInfo cultureInfo)
     {
         _logConfiguration.Culture = cultureInfo;
+        _consoleLogger.SetCultureInfo(cultureInfo);
         foreach (var service in _logConfiguration.LogServices) service.SetCultureInfo(cultureInfo);
     }
 
@@ -95,7 +99,7 @@ public static class Log
     public static void Info<T>(string source, string message, T context)
     {
         if (_logConfiguration.LogLevel > LogLevel.Info) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Info(source, $"{message}|with context:{context}");
+        if (_logConfiguration.ConsoleOutput) _consoleLogger.Info(source, $"{message}|{context}");
         foreach (var service in _logConfiguration.LogServices) service.Info(source, message, context);
     }
 
@@ -120,7 +124,7 @@ public static class Log
     public static void Warning<T>(string source, string message, T context)
     {
         if (_logConfiguration.LogLevel > LogLevel.Warn) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Warning(source, $"{message}|with context:{context}");
+        if (_logConfiguration.ConsoleOutput) _consoleLogger.Warning(source, $"{message}|{context}");
         foreach (var service in _logConfiguration.LogServices) service.Warning(source, message, context);
     }
 
@@ -145,7 +149,7 @@ public static class Log
     public static void Error(Exception exception, string source, string message)
     {
         if (_logConfiguration.LogLevel > LogLevel.Error) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, message);
+        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, $"{message}\r\n{ErrorLogBuilder(exception)}");
         foreach (var service in _logConfiguration.LogServices) service.Error(exception, source, message);
     }
 
@@ -158,7 +162,7 @@ public static class Log
     public static void Error<T>(string source, string message, T context)
     {
         if (_logConfiguration.LogLevel > LogLevel.Error) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, message);
+        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, $"{message}|{context}");
         foreach (var service in _logConfiguration.LogServices) service.Error(source, message, context);
     }
 
@@ -172,7 +176,8 @@ public static class Log
     public static void Error<T>(Exception exception, string source, string message, T context)
     {
         if (_logConfiguration.LogLevel > LogLevel.Error) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, message);
+        if (_logConfiguration.ConsoleOutput)
+            _consoleLogger.Error(source, $"{message}|{context}\r\n{ErrorLogBuilder(exception)}");
         foreach (var service in _logConfiguration.LogServices) service.Error(exception, source, message, context);
     }
 
@@ -234,7 +239,7 @@ public static class Log
     public static void Debug<T>(string source, string message, T context)
     {
         if (_logConfiguration.LogLevel > LogLevel.Debug) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Debug(source, $"{message}|with context:{context}");
+        if (_logConfiguration.ConsoleOutput) _consoleLogger.Debug(source, $"{message}|{context}");
         foreach (var service in _logConfiguration.LogServices) service.Debug(source, message, context);
     }
 
@@ -259,7 +264,7 @@ public static class Log
     public static void Verbos<T>(string source, string message, T context)
     {
         if (_logConfiguration.LogLevel != LogLevel.Verbos) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, $"{message}|with context:{context}");
+        if (_logConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, $"{message}|{context}");
         foreach (var service in _logConfiguration.LogServices) service.Verbos(source, message, context);
     }
 
