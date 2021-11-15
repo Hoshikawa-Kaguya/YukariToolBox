@@ -17,7 +17,7 @@ jobs:
 
       # Publish
       - name: publish on version change[YukariToolBox.Extensions]
-        id: publish_nuget
+        id: publish_nuget_Extensions
         uses: brandedoutcast/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
@@ -51,7 +51,7 @@ jobs:
           INCLUDE_SYMBOLS: false
 
       - name: publish on version change[YukariToolBox.LightLog]
-        id: publish_nuget
+        id: publish_nuget_LightLog
         uses: brandedoutcast/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
@@ -85,7 +85,7 @@ jobs:
           INCLUDE_SYMBOLS: false
 
       - name: publish on version change[YukariToolBox.ObjectHelper]
-        id: publish_nuget
+        id: publish_nuget_ObjectHelper
         uses: brandedoutcast/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
@@ -119,7 +119,7 @@ jobs:
           INCLUDE_SYMBOLS: false
       
       - name: publish on version change[YukariToolBox.Time]
-        id: publish_nuget
+        id: publish_nuget_Time
         uses: brandedoutcast/publish-nuget@v2
         with:
           # Filepath of the project to be packaged, relative to root of repository
