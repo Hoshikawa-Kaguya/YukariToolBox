@@ -2,11 +2,13 @@ using System;
 using System.Globalization;
 using YukariToolBox.LightLog;
 
-Log.SetConfiguration(new LogConfiguration()
-                     .SetLogLevel(LogLevel.Verbos)
-                     .EnableConsoleOutput()
-                     // .AddLogService(CustomLogger)
-                     .SetLogCultureInfo(CultureInfo.InvariantCulture));
+//–ﬁ∏ƒlog…Ë÷√
+Log.LogConfiguration
+   .SetLogLevel(LogLevel.Verbos)
+   .EnableConsoleOutput()
+   // .AddLogService(CustomLogger)
+   .SetLogCultureInfo(CultureInfo.InvariantCulture);
+//Log
 Log.Verbos("wow", "wow");
 Log.Debug("wow", "wow");
 Log.Info("wow", "wow");

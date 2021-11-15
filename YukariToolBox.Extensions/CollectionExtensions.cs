@@ -1,6 +1,6 @@
 ﻿// ReSharper disable ConditionIsAlwaysTrueOrFalse
 
-namespace YukariToolBox.AsyncExtensions;
+namespace YukariToolBox.Extensions;
 
 /// <summary>
 /// 

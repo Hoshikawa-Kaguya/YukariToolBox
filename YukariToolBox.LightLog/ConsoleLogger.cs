@@ -4,9 +4,15 @@ namespace YukariToolBox.LightLog;
 
 internal class ConsoleLogger
 {
+    #region 控制台初始颜色
+
+    private readonly ConsoleColor _consoleColor = Console.BackgroundColor;
+
+    #endregion
+
     #region 控制台锁
 
-    private readonly object ConsoleWriterLock = new();
+    private readonly object _consoleWriterLock = new();
 
     #endregion
 
@@ -20,7 +26,7 @@ internal class ConsoleLogger
     /// <param name="cultureInfo">区域信息</param>
     public void SetCultureInfo(CultureInfo cultureInfo)
     {
-        lock (ConsoleWriterLock)
+        lock (_consoleWriterLock)
         {
             _cultureInfo = cultureInfo;
         }
@@ -37,10 +43,14 @@ internal class ConsoleLogger
     /// <param name="message">信息内容</param>
     public void Info(string type, string message)
     {
-        lock (ConsoleWriterLock)
+        lock (_consoleWriterLock)
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($@"[{DateTime.Now.ToString(_cultureInfo)}][Info][{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.White, _consoleColor);
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.White);
+            Console.Write(@"Info");
+            ChangeConsoleColor(ConsoleColor.White, _consoleColor);
+            Console.WriteLine($@"   |[{type}]{message}");
         }
     }
 
@@ -51,10 +61,15 @@ internal class ConsoleLogger
     /// <param name="message">信息内容</param>
     public void Warning(string type, string message)
     {
-        lock (ConsoleWriterLock)
+        lock (_consoleWriterLock)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($@"[{DateTime.Now.ToString(_cultureInfo)}][Warning][{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.DarkYellow, _consoleColor);
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkYellow);
+            Console.Write(@"Warning");
+            ChangeConsoleColor(ConsoleColor.DarkYellow, _consoleColor);
+            Console.WriteLine($@"|[{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
 
@@ -65,10 +80,15 @@ internal class ConsoleLogger
     /// <param name="message">信息内容</param>
     public void Error(string type, string message)
     {
-        lock (ConsoleWriterLock)
+        lock (_consoleWriterLock)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($@"[{DateTime.Now.ToString(_cultureInfo)}][Error][{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkRed);
+            Console.Write(@"Error");
+            ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
+            Console.WriteLine($@"  |[{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
 
@@ -79,10 +99,15 @@ internal class ConsoleLogger
     /// <param name="message">信息内容</param>
     public void Fatal(string type, string message)
     {
-        lock (ConsoleWriterLock)
+        lock (_consoleWriterLock)
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine($@"[{DateTime.Now.ToString(_cultureInfo)}][Fatal][{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkRed);
+            Console.Write(@"Fatal");
+            ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
+            Console.WriteLine($@"  |[{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
 
@@ -93,10 +118,15 @@ internal class ConsoleLogger
     /// <param name="message">信息内容</param>
     public void Debug(string type, string message)
     {
-        lock (ConsoleWriterLock)
+        lock (_consoleWriterLock)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($@"[{DateTime.Now.ToString(_cultureInfo)}][Debug][{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.Cyan, _consoleColor);
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.Cyan);
+            Console.Write(@"Debug");
+            ChangeConsoleColor(ConsoleColor.Cyan, _consoleColor);
+            Console.WriteLine($@"  |[{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
 
@@ -107,11 +137,26 @@ internal class ConsoleLogger
     /// <param name="message">信息内容</param>
     public void Verbos(string type, string message)
     {
-        lock (ConsoleWriterLock)
+        lock (_consoleWriterLock)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($@"[{DateTime.Now.ToString(_cultureInfo)}][Verbos][{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.Green);
+            Console.Write(@"Verbos");
+            ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
+            Console.WriteLine($@" |[{type}]{message}");
+            ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
+    }
+
+    #endregion
+
+    #region 着色设置
+
+    private void ChangeConsoleColor(ConsoleColor fColor, ConsoleColor bColor)
+    {
+        Console.ForegroundColor = fColor;
+        Console.BackgroundColor = bColor;
     }
 
     #endregion

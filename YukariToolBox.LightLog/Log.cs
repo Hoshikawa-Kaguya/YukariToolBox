@@ -8,7 +8,14 @@ namespace YukariToolBox.LightLog;
 /// </summary>
 public static class Log
 {
-    private static LogConfiguration _logConfiguration = new();
+    #region Log设置
+
+    /// <summary>
+    /// Log配置
+    /// </summary>
+    public static LogConfiguration LogConfiguration { get; } = new();
+
+    #endregion
 
     #region Log等级设置
 
@@ -22,7 +29,7 @@ public static class Log
     {
         if (newLevel is < LogLevel.Verbos or > LogLevel.Fatal)
             throw new ArgumentOutOfRangeException(nameof(newLevel), "loglevel out of range");
-        _logConfiguration.LogLevel = newLevel;
+        LogConfiguration.LogLevel = newLevel;
     }
 
     /// <summary>
@@ -30,7 +37,7 @@ public static class Log
     /// </summary>
     public static LogLevel GetLogLevel()
     {
-        return _logConfiguration.LogLevel;
+        return LogConfiguration.LogLevel;
     }
 
     /// <summary>
@@ -38,19 +45,7 @@ public static class Log
     /// </summary>
     public static void SetNoLog()
     {
-        _logConfiguration.LogLevel = (LogLevel) 5;
-    }
-
-    #endregion
-
-    #region log配置文件
-
-    /// <summary>
-    /// 设置log配置
-    /// </summary>
-    public static void SetConfiguration(LogConfiguration configuration)
-    {
-        _logConfiguration = configuration;
+        LogConfiguration.LogLevel = (LogLevel) 5;
     }
 
     #endregion
@@ -63,9 +58,9 @@ public static class Log
     /// <param name="cultureInfo">区域信息</param>
     public static void SetCultureInfo(CultureInfo cultureInfo)
     {
-        _logConfiguration.Culture = cultureInfo;
+        LogConfiguration.Culture = cultureInfo;
         _consoleLogger.SetCultureInfo(cultureInfo);
-        foreach (var service in _logConfiguration.LogServices) service.SetCultureInfo(cultureInfo);
+        foreach (var service in LogConfiguration.LogServices) service.SetCultureInfo(cultureInfo);
     }
 
     #endregion
@@ -85,9 +80,9 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Info(string source, string message)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Info) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Info(source, message);
-        foreach (var service in _logConfiguration.LogServices) service.Info(source, message);
+        if (LogConfiguration.LogLevel > LogLevel.Info) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Info(source, message);
+        foreach (var service in LogConfiguration.LogServices) service.Info(source, message);
     }
 
     /// <summary>
@@ -98,9 +93,9 @@ public static class Log
     /// <param name="context">自定义数据</param>
     public static void Info<T>(string source, string message, T context)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Info) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Info(source, $"{message}|{context}");
-        foreach (var service in _logConfiguration.LogServices) service.Info(source, message, context);
+        if (LogConfiguration.LogLevel > LogLevel.Info) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Info(source, $"{message}|{context}");
+        foreach (var service in LogConfiguration.LogServices) service.Info(source, message, context);
     }
 
     /// <summary>
@@ -110,9 +105,9 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Warning(string source, string message)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Warn) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Warning(source, message);
-        foreach (var service in _logConfiguration.LogServices) service.Warning(source, message);
+        if (LogConfiguration.LogLevel > LogLevel.Warn) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Warning(source, message);
+        foreach (var service in LogConfiguration.LogServices) service.Warning(source, message);
     }
 
     /// <summary>
@@ -123,9 +118,9 @@ public static class Log
     /// <param name="context">自定义数据</param>
     public static void Warning<T>(string source, string message, T context)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Warn) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Warning(source, $"{message}|{context}");
-        foreach (var service in _logConfiguration.LogServices) service.Warning(source, message, context);
+        if (LogConfiguration.LogLevel > LogLevel.Warn) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Warning(source, $"{message}|{context}");
+        foreach (var service in LogConfiguration.LogServices) service.Warning(source, message, context);
     }
 
     /// <summary>
@@ -135,9 +130,9 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Error(string source, string message)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Error) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, message);
-        foreach (var service in _logConfiguration.LogServices) service.Error(source, message);
+        if (LogConfiguration.LogLevel > LogLevel.Error) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Error(source, message);
+        foreach (var service in LogConfiguration.LogServices) service.Error(source, message);
     }
 
     /// <summary>
@@ -148,9 +143,9 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Error(Exception exception, string source, string message)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Error) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, $"{message}\r\n{ErrorLogBuilder(exception)}");
-        foreach (var service in _logConfiguration.LogServices) service.Error(exception, source, message);
+        if (LogConfiguration.LogLevel > LogLevel.Error) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Error(source, $"{message}\r\n{ErrorLogBuilder(exception)}");
+        foreach (var service in LogConfiguration.LogServices) service.Error(exception, source, message);
     }
 
     /// <summary>
@@ -161,9 +156,9 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Error<T>(string source, string message, T context)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Error) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Error(source, $"{message}|{context}");
-        foreach (var service in _logConfiguration.LogServices) service.Error(source, message, context);
+        if (LogConfiguration.LogLevel > LogLevel.Error) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Error(source, $"{message}|{context}");
+        foreach (var service in LogConfiguration.LogServices) service.Error(source, message, context);
     }
 
     /// <summary>
@@ -175,10 +170,10 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Error<T>(Exception exception, string source, string message, T context)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Error) return;
-        if (_logConfiguration.ConsoleOutput)
+        if (LogConfiguration.LogLevel > LogLevel.Error) return;
+        if (LogConfiguration.ConsoleOutput)
             _consoleLogger.Error(source, $"{message}|{context}\r\n{ErrorLogBuilder(exception)}");
-        foreach (var service in _logConfiguration.LogServices) service.Error(exception, source, message, context);
+        foreach (var service in LogConfiguration.LogServices) service.Error(exception, source, message, context);
     }
 
     /// <summary>
@@ -189,14 +184,14 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Fatal(Exception exception, string source, string message)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Fatal) return;
-        if (_logConfiguration.ConsoleOutput)
+        if (LogConfiguration.LogLevel > LogLevel.Fatal) return;
+        if (LogConfiguration.ConsoleOutput)
         {
             _consoleLogger.Fatal(source, message);
             _consoleLogger.Fatal(source, $"\r\n{ErrorLogBuilder(exception)}");
         }
 
-        foreach (var service in _logConfiguration.LogServices) service.Fatal(exception, source, message);
+        foreach (var service in LogConfiguration.LogServices) service.Fatal(exception, source, message);
     }
 
     /// <summary>
@@ -208,14 +203,14 @@ public static class Log
     /// <param name="context">自定义数据</param>
     public static void Fatal<T>(Exception exception, string source, string message, T context)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Fatal) return;
-        if (_logConfiguration.ConsoleOutput)
+        if (LogConfiguration.LogLevel > LogLevel.Fatal) return;
+        if (LogConfiguration.ConsoleOutput)
         {
             _consoleLogger.Fatal(source, $"{message}|with context:{context}");
             _consoleLogger.Fatal(source, $"\r\n{ErrorLogBuilder(exception)}");
         }
 
-        foreach (var service in _logConfiguration.LogServices) service.Fatal(exception, source, message, context);
+        foreach (var service in LogConfiguration.LogServices) service.Fatal(exception, source, message, context);
     }
 
     /// <summary>
@@ -225,9 +220,9 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Debug(string source, string message)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Debug) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Debug(source, message);
-        foreach (var service in _logConfiguration.LogServices) service.Debug(source, message);
+        if (LogConfiguration.LogLevel > LogLevel.Debug) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Debug(source, message);
+        foreach (var service in LogConfiguration.LogServices) service.Debug(source, message);
     }
 
     /// <summary>
@@ -238,9 +233,9 @@ public static class Log
     /// <param name="context">自定义数据</param>
     public static void Debug<T>(string source, string message, T context)
     {
-        if (_logConfiguration.LogLevel > LogLevel.Debug) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Debug(source, $"{message}|{context}");
-        foreach (var service in _logConfiguration.LogServices) service.Debug(source, message, context);
+        if (LogConfiguration.LogLevel > LogLevel.Debug) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Debug(source, $"{message}|{context}");
+        foreach (var service in LogConfiguration.LogServices) service.Debug(source, message, context);
     }
 
     /// <summary>
@@ -250,9 +245,9 @@ public static class Log
     /// <param name="message">信息内容</param>
     public static void Verbos(string source, string message)
     {
-        if (_logConfiguration.LogLevel != LogLevel.Verbos) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, message);
-        foreach (var service in _logConfiguration.LogServices) service.Verbos(source, message);
+        if (LogConfiguration.LogLevel != LogLevel.Verbos) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, message);
+        foreach (var service in LogConfiguration.LogServices) service.Verbos(source, message);
     }
 
     /// <summary>
@@ -263,9 +258,9 @@ public static class Log
     /// <param name="context">自定义数据</param>
     public static void Verbos<T>(string source, string message, T context)
     {
-        if (_logConfiguration.LogLevel != LogLevel.Verbos) return;
-        if (_logConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, $"{message}|{context}");
-        foreach (var service in _logConfiguration.LogServices) service.Verbos(source, message, context);
+        if (LogConfiguration.LogLevel != LogLevel.Verbos) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, $"{message}|{context}");
+        foreach (var service in LogConfiguration.LogServices) service.Verbos(source, message, context);
     }
 
     #endregion
@@ -278,9 +273,9 @@ public static class Log
     /// <param name="args">UnhandledExceptionEventArgs</param>
     public static void UnhandledExceptionLog(UnhandledExceptionEventArgs args)
     {
-        if (_logConfiguration.ConsoleOutput && args.ExceptionObject is Exception ex)
+        if (LogConfiguration.ConsoleOutput && args.ExceptionObject is Exception ex)
             _consoleLogger.Fatal("UnhandledException", ErrorLogBuilder(ex));
-        foreach (var service in _logConfiguration.LogServices) service.UnhandledExceptionLog(args);
+        foreach (var service in LogConfiguration.LogServices) service.UnhandledExceptionLog(args);
     }
 
     #endregion

@@ -1,4 +1,4 @@
-namespace YukariToolBox.AsyncExtensions;
+namespace YukariToolBox.Extensions;
 
 /// <summary>
 /// 用于异步执行的简易化错误处理
