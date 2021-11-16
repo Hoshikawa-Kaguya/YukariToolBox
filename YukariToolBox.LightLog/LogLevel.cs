@@ -8,7 +8,7 @@ public enum LogLevel
     /// <summary>
     /// Verbos
     /// </summary>
-    Verbos,
+    Verbose,
 
     /// <summary>
     /// Debug

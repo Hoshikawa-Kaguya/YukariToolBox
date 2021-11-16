@@ -131,11 +131,11 @@ internal class ConsoleLogger
     }
 
     /// <summary>
-    /// 向控制台发送Verbos信息
+    /// 向控制台发送Verbose信息
     /// </summary>
     /// <param name="type">类型</param>
     /// <param name="message">信息内容</param>
-    public void Verbos(string type, string message)
+    public void Verbose(string type, string message)
     {
         lock (_consoleWriterLock)
         {

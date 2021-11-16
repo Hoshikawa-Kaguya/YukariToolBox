@@ -4,12 +4,12 @@ using YukariToolBox.LightLog;
 
 //–ﬁ∏ƒlog…Ë÷√
 Log.LogConfiguration
-   .SetLogLevel(LogLevel.Verbos)
+   .SetLogLevel(LogLevel.Verbose)
    .EnableConsoleOutput()
    // .AddLogService(CustomLogger)
    .SetLogCultureInfo(CultureInfo.InvariantCulture);
 //Log
-Log.Verbos("wow", "wow");
+Log.Verbose("wow", "wow");
 Log.Debug("wow", "wow");
 Log.Info("wow", "wow");
 Log.Warning("wow", "wow");

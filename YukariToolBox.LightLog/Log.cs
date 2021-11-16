@@ -27,7 +27,7 @@ public static class Log
     /// <exception cref="ArgumentOutOfRangeException">loglevel超出正常值</exception>
     public static void SetLogLevel(LogLevel newLevel)
     {
-        if (newLevel is < LogLevel.Verbos or > LogLevel.Fatal)
+        if (newLevel is < LogLevel.Verbose or > LogLevel.Fatal)
             throw new ArgumentOutOfRangeException(nameof(newLevel), "loglevel out of range");
         LogConfiguration.LogLevel = newLevel;
     }
@@ -45,7 +45,7 @@ public static class Log
     /// </summary>
     public static void SetNoLog()
     {
-        LogConfiguration.LogLevel = (LogLevel) 5;
+        LogConfiguration.LogLevel = (LogLevel)5;
     }
 
     #endregion
@@ -243,11 +243,11 @@ public static class Log
     /// </summary>
     /// <param name="source">源</param>
     /// <param name="message">信息内容</param>
-    public static void Verbos(string source, string message)
+    public static void Verbose(string source, string message)
     {
-        if (LogConfiguration.LogLevel != LogLevel.Verbos) return;
-        if (LogConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, message);
-        foreach (var service in LogConfiguration.LogServices) service.Verbos(source, message);
+        if (LogConfiguration.LogLevel != LogLevel.Verbose) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Verbose(source, message);
+        foreach (var service in LogConfiguration.LogServices) service.Verbose(source, message);
     }
 
     /// <summary>
@@ -256,11 +256,11 @@ public static class Log
     /// <param name="source">源</param>
     /// <param name="message">信息内容</param>
     /// <param name="context">自定义数据</param>
-    public static void Verbos<T>(string source, string message, T context)
+    public static void Verbose<T>(string source, string message, T context)
     {
-        if (LogConfiguration.LogLevel != LogLevel.Verbos) return;
-        if (LogConfiguration.ConsoleOutput) _consoleLogger.Verbos(source, $"{message}|{context}");
-        foreach (var service in LogConfiguration.LogServices) service.Verbos(source, message, context);
+        if (LogConfiguration.LogLevel != LogLevel.Verbose) return;
+        if (LogConfiguration.ConsoleOutput) _consoleLogger.Verbose(source, $"{message}|{context}");
+        foreach (var service in LogConfiguration.LogServices) service.Verbose(source, message, context);
     }
 
     #endregion

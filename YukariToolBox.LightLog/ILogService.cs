@@ -68,14 +68,14 @@ public interface ILogService
     public void Debug<T>(string source, string message, T context);
 
     /// <summary>
-    /// Verbos
+    /// Verbose
     /// </summary>
-    public void Verbos(string source, string message);
+    public void Verbose(string source, string message);
 
     /// <summary>
-    /// Verbos
+    /// Verbose
     /// </summary>
-    public void Verbos<T>(string source, string message, T context);
+    public void Verbose<T>(string source, string message, T context);
 
     /// <summary>
     /// UnhandledExceptionLog
