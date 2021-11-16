@@ -1,9 +1,18 @@
 using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
+using System.Text;
+using static YukariToolBox.LightLog.ConsoleUtils;
 
 namespace YukariToolBox.LightLog;
 
 internal class ConsoleLogger
 {
+    #region 控制台缓冲区
+
+    private StringBuilder _buffer = new();
+
+    #endregion
+
     #region 控制台初始颜色
 
     private readonly ConsoleColor _consoleColor = Console.BackgroundColor;
@@ -34,6 +43,85 @@ internal class ConsoleLogger
 
     #endregion
 
+    #region 标准输出函数
+
+    public ConsoleLogger ChangeColor(ConsoleColor fColor, ConsoleColor bColor)
+    {
+        ChangeConsoleColor(fColor, bColor);
+        return this;
+    }
+
+    public ConsoleLogger WriteLine(string msg)
+    {
+        lock (_consoleWriterLock)
+        {
+            Console.WriteLine(msg);
+        }
+
+        return this;
+    }
+
+    public ConsoleLogger Write(string msg)
+    {
+        lock (_consoleWriterLock)
+        {
+            Console.Write(msg);
+        }
+
+        return this;
+    }
+
+    public ConsoleLogger WriteLine(params string[] msg)
+    {
+        lock (_consoleWriterLock)
+        {
+            foreach (string s in msg)
+            {
+                Console.WriteLine(s);
+            }
+        }
+
+        return this;
+    }
+
+    public ConsoleLogger Write(params string[] msg)
+    {
+        lock (_consoleWriterLock)
+        {
+            foreach (string s in msg)
+            {
+                Console.Write(s);
+            }
+        }
+
+        return this;
+    }
+
+    public ConsoleLogger BufferAppend(string msg)
+    {
+        _buffer.Append(msg);
+        return this;
+    }
+
+    public ConsoleLogger BufferAppendLine(string msg)
+    {
+        _buffer.AppendLine(msg);
+        return this;
+    }
+
+    public ConsoleLogger BufferWrite(string msg)
+    {
+        lock (_consoleWriterLock)
+        {
+            Console.Write(_buffer.ToString());
+            _buffer.Clear();
+        }
+
+        return this;
+    }
+
+    #endregion
+
     #region 格式化控制台Log函数
 
     /// <summary>
@@ -41,7 +129,7 @@ internal class ConsoleLogger
     /// </summary>
     /// <param name="type">类型</param>
     /// <param name="message">信息内容</param>
-    public void Info(string type, string message)
+    public ConsoleLogger Info(string type, string message)
     {
         lock (_consoleWriterLock)
         {
@@ -52,6 +140,8 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
             Console.WriteLine($@" |[{type}]{message}");
         }
+
+        return this;
     }
 
     /// <summary>
@@ -142,21 +232,11 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
             Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.Green);
-            Console.Write(@"Verbos ");
+            Console.Write(@"Verbose ");
             ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
             Console.WriteLine($@" |[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
-    }
-
-    #endregion
-
-    #region 着色设置
-
-    private void ChangeConsoleColor(ConsoleColor fColor, ConsoleColor bColor)
-    {
-        Console.ForegroundColor = fColor;
-        Console.BackgroundColor = bColor;
     }
 
     #endregion

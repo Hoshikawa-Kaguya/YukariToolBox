@@ -15,3 +15,4 @@ Log.Info("wow", "wow");
 Log.Warning("wow", "wow");
 Log.Error("wow", "wow");
 Log.Fatal(new Exception("shit"), "wow", "wow");
+
