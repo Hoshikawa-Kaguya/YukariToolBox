@@ -46,11 +46,11 @@ internal class ConsoleLogger
         lock (_consoleWriterLock)
         {
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
-            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.White);
-            Console.Write(@"Info");
+            Console.Write(@"Info   ");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
-            Console.WriteLine($@"   |[{type}]{message}");
+            Console.WriteLine($@" |[{type}]{message}");
         }
     }
 
@@ -64,11 +64,11 @@ internal class ConsoleLogger
         lock (_consoleWriterLock)
         {
             ChangeConsoleColor(ConsoleColor.DarkYellow, _consoleColor);
-            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkYellow);
             Console.Write(@"Warning");
             ChangeConsoleColor(ConsoleColor.DarkYellow, _consoleColor);
-            Console.WriteLine($@"|[{type}]{message}");
+            Console.WriteLine($@" |[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -83,11 +83,11 @@ internal class ConsoleLogger
         lock (_consoleWriterLock)
         {
             ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
-            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkRed);
-            Console.Write(@"Error");
+            Console.Write(@"Error  ");
             ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
-            Console.WriteLine($@"  |[{type}]{message}");
+            Console.WriteLine($@" |[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -102,11 +102,11 @@ internal class ConsoleLogger
         lock (_consoleWriterLock)
         {
             ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
-            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkRed);
-            Console.Write(@"Fatal");
+            Console.Write(@"Fatal  ");
             ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
-            Console.WriteLine($@"  |[{type}]{message}");
+            Console.WriteLine($@" |[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -121,11 +121,11 @@ internal class ConsoleLogger
         lock (_consoleWriterLock)
         {
             ChangeConsoleColor(ConsoleColor.Cyan, _consoleColor);
-            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.Cyan);
-            Console.Write(@"Debug");
+            Console.Write(@"Debug  ");
             ChangeConsoleColor(ConsoleColor.Cyan, _consoleColor);
-            Console.WriteLine($@"  |[{type}]{message}");
+            Console.WriteLine($@" |[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -140,9 +140,9 @@ internal class ConsoleLogger
         lock (_consoleWriterLock)
         {
             ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
-            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}|");
+            Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.Green);
-            Console.Write(@"Verbos");
+            Console.Write(@"Verbos ");
             ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
             Console.WriteLine($@" |[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
