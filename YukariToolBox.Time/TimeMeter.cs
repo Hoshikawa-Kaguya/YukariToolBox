@@ -27,7 +27,7 @@ public static class TimeMeter
         long _stopTime;
         long _frequency = 0;
         var useHighPerformance = Environment.OSVersion.Platform == PlatformID.Win32NT &&
-                                 QueryPerformanceFrequency(out _frequency);
+            QueryPerformanceFrequency(out _frequency);
 
         Thread.Sleep(0);
         if (useHighPerformance)
@@ -62,7 +62,7 @@ public static class TimeMeter
         long _stopTime;
         long _frequency = 0;
         var useHighPerformance = Environment.OSVersion.Platform == PlatformID.Win32NT &&
-                                 QueryPerformanceFrequency(out _frequency);
+            QueryPerformanceFrequency(out _frequency);
 
 
         Thread.Sleep(0);

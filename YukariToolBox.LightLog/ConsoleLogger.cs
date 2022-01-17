@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using static YukariToolBox.LightLog.ConsoleUtils;
 
@@ -9,7 +8,7 @@ internal class ConsoleLogger
 {
     #region 控制台缓冲区
 
-    private StringBuilder _buffer = new();
+    private readonly StringBuilder _buffer = new();
 
     #endregion
 
@@ -75,10 +74,7 @@ internal class ConsoleLogger
     {
         lock (_consoleWriterLock)
         {
-            foreach (string s in msg)
-            {
-                Console.WriteLine(s);
-            }
+            foreach (var s in msg) Console.WriteLine(s);
         }
 
         return this;
@@ -88,10 +84,7 @@ internal class ConsoleLogger
     {
         lock (_consoleWriterLock)
         {
-            foreach (string s in msg)
-            {
-                Console.Write(s);
-            }
+            foreach (var s in msg) Console.Write(s);
         }
 
         return this;
@@ -129,7 +122,7 @@ internal class ConsoleLogger
     /// </summary>
     /// <param name="type">类型</param>
     /// <param name="message">信息内容</param>
-    public ConsoleLogger Info(string type, string message)
+    public void Info(string type, string message)
     {
         lock (_consoleWriterLock)
         {
@@ -138,10 +131,9 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.White);
             Console.Write(@"Info   ");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
-            Console.WriteLine($@" |[{type}]{message}");
+            Console.WriteLine($@" | {GetTypeName()}");
+            Console.WriteLine($@"[{type}]{message}");
         }
-
-        return this;
     }
 
     /// <summary>
@@ -158,7 +150,8 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkYellow);
             Console.Write(@"Warning");
             ChangeConsoleColor(ConsoleColor.DarkYellow, _consoleColor);
-            Console.WriteLine($@" |[{type}]{message}");
+            Console.WriteLine($@" | {GetTypeName()}");
+            Console.WriteLine($@"[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -177,7 +170,8 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkRed);
             Console.Write(@"Error  ");
             ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
-            Console.WriteLine($@" |[{type}]{message}");
+            Console.WriteLine($@" | {GetTypeName()}");
+            Console.WriteLine($@"[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -196,7 +190,8 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.DarkRed);
             Console.Write(@"Fatal  ");
             ChangeConsoleColor(ConsoleColor.DarkRed, _consoleColor);
-            Console.WriteLine($@" |[{type}]{message}");
+            Console.WriteLine($@" | {GetTypeName()}");
+            Console.WriteLine($@"[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -215,7 +210,8 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.Cyan);
             Console.Write(@"Debug  ");
             ChangeConsoleColor(ConsoleColor.Cyan, _consoleColor);
-            Console.WriteLine($@" |[{type}]{message}");
+            Console.WriteLine($@" | {GetTypeName()}");
+            Console.WriteLine($@"[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }
@@ -232,9 +228,10 @@ internal class ConsoleLogger
             ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
             Console.Write($@"{DateTime.Now.ToString(_cultureInfo)}| ");
             ChangeConsoleColor(ConsoleColor.Black, ConsoleColor.Green);
-            Console.Write(@"Verbose ");
+            Console.Write(@"Verbose");
             ChangeConsoleColor(ConsoleColor.Green, _consoleColor);
-            Console.WriteLine($@" |[{type}]{message}");
+            Console.WriteLine($@" | {GetTypeName()}");
+            Console.WriteLine($@"[{type}]{message}");
             ChangeConsoleColor(ConsoleColor.White, _consoleColor);
         }
     }

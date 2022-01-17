@@ -3,7 +3,7 @@ using System.Globalization;
 namespace YukariToolBox.LightLog;
 
 /// <summary>
-/// 自定义的log服务
+/// 鑷畾涔夌殑log鏈嶅姟
 /// </summary>
 public interface ILogService
 {
@@ -83,7 +83,7 @@ public interface ILogService
     public void UnhandledExceptionLog(UnhandledExceptionEventArgs args);
 
     /// <summary>
-    /// 设置区域
+    /// 璁剧疆鍖哄煙
     /// </summary>
     public void SetCultureInfo(CultureInfo cultureInfo);
 }

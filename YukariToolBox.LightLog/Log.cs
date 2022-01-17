@@ -45,7 +45,7 @@ public static class Log
     /// </summary>
     public static void SetNoLog()
     {
-        LogConfiguration.LogLevel = (LogLevel)5;
+        LogConfiguration.LogLevel = (LogLevel) 5;
     }
 
     #endregion

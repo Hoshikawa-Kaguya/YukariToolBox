@@ -1,12 +1,12 @@
-using System;
+ï»¿using System;
 using System.Globalization;
 using YukariToolBox.LightLog;
 
-//ÐÞ¸ÄlogÉèÖÃ
+//ä¿®æ”¹logè®¾ç½®
 Log.LogConfiguration
    .SetLogLevel(LogLevel.Verbose)
    .EnableConsoleOutput()
-   // .AddLogService(CustomLogger)
+    // .AddLogService(CustomLogger)
    .SetLogCultureInfo(CultureInfo.InvariantCulture);
 //Log
 Log.Verbose("wow", "wow");
@@ -15,4 +15,3 @@ Log.Info("wow", "wow");
 Log.Warning("wow", "wow");
 Log.Error("wow", "wow");
 Log.Fatal(new Exception("shit"), "wow", "wow");
-
